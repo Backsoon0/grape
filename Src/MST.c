@@ -6,6 +6,13 @@
 #include "queue.h"
 #include "PQ.h"
 
+/**
+ * @brief 查看某个点连接的边
+ * @param this 自己
+ * @param g 需要参考的无向有权图
+ * @param s 需要查看的点
+ * @note 如果这条边会使最小二叉树形成环则去除，否则就添加到队列中
+*/
 void mst_visit(Mst* this,Weightgrape* g,int s)
 {
     this->marked[s] = true;
@@ -20,6 +27,11 @@ void mst_visit(Mst* this,Weightgrape* g,int s)
     
 }
 
+/**
+ * @brief 生成最小二叉树
+ * @param this 自己
+ * @param g 需要参考的无向有权图
+*/
 void mst(Mst* this,Weightgrape* g)
 {
     // 首先对结构体进行初始化
@@ -40,7 +52,7 @@ void mst(Mst* this,Weightgrape* g)
         queue_enqueueEdge(&this->mst,e.tedge);    // 如果没有则加入队列表示为最小生成树
         // 通过这条边来加入未被标记的顶点，以及它的有效边
         if (!this->marked[ver1])
-            mst_visit(this,g,ver1);
+            mst_visit(this,g,ver1); // 将连接这个点的边添加到优先队列中
         else if (!this->marked[ver2])
             mst_visit(this,g,ver2);
     }
